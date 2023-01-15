@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainManager : MonoBehaviour
 {
     public Brick BrickPrefab;
+    [SerializeField] Text BestScoreText;
     public int LineCount = 6;
     public Rigidbody Ball;
 
@@ -21,7 +22,9 @@ public class MainManager : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        if(BetweenSceneDataManager.Instatance != null)
+            BestScoreText.text = $"Best Score : {BetweenSceneDataManager.Instatance.Name} : {BetweenSceneDataManager.Instatance.Score}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -70,7 +73,15 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
-        m_GameOver = true;
+        Debug.Log("Game Over : " + BetweenSceneDataManager.Instatance.Name + "  " + BetweenSceneDataManager.Instatance.Score);
+        
+        if(m_Points > BetweenSceneDataManager.Instatance.Score)
+        {
+            BetweenSceneDataManager.Instatance.Name = BetweenSceneDataManager.Instatance.session_user;
+            BetweenSceneDataManager.Instatance.Score = m_Points;
+        }
+        BetweenSceneDataManager.Instatance.SaveData();
+       m_GameOver = true;
         GameOverText.SetActive(true);
     }
 }
