@@ -6,8 +6,8 @@ using System.IO;
 public  class BetweenSceneDataManager : MonoBehaviour
 {
     public static BetweenSceneDataManager Instatance;
-    public string Name ="NAme";
-    public int Score=1;
+    public string Name;
+    public int Score;
     public string session_user ;
     public int session_Score;
     private void Awake()
